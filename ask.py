@@ -105,7 +105,6 @@ def ask_question(question: str, model: str, verbose: bool) -> str:
     messages = [system_prompt, {"role": "user", "content": f"{question}\n{instructions}"}]
 
     final_message = False
-
     while not final_message:
         if verbose:
             print(f" -> Querying {model}")
@@ -114,16 +113,17 @@ def ask_question(question: str, model: str, verbose: bool) -> str:
         messages.append(assistant_message)
         
         if assistant_message.tool_calls:
-            query = json.loads(assistant_message.tool_calls[0].function.arguments)['query']
-            if verbose:
-                print(f" -> Running SQL query: {query}")
-            query_result = query_result_as_markdown_table(query)
-            messages.append({
-                "tool_call_id": assistant_message.tool_calls[0].id,
-                "role": "tool",
-                "name": "query_result_as_markdown_table",
-                "content": query_result
-            })
+            for i in range(len(assistant_message.tool_calls)):
+                query = json.loads(assistant_message.tool_calls[i].function.arguments)['query']
+                if verbose:
+                    print(f" -> Running SQL query: {query}")
+                query_result = query_result_as_markdown_table(query)
+                messages.append({
+                    "tool_call_id": assistant_message.tool_calls[i].id,
+                    "role": "tool",
+                    "name": "query_result_as_markdown_table",
+                    "content": query_result
+                })
         else:
             final_message = True
             
@@ -136,6 +136,7 @@ if __name__ == "__main__":
     arg_parser.add_argument('-v', '--verbose', default=False, action='store_true', help='Enable verbose mode', dest='verbose')
     args = arg_parser.parse_args()
 
+    print(f"[Running using {args.model}]")
     print("\nWelcome! Ask as many IMDB-related questions as you would like. To exit, press Ctrl+C.")
     if args.verbose:
         print("Verbose mode on.")
