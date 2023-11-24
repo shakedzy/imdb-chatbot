@@ -2,7 +2,8 @@
 
 ## Architecture
 ![Architecture](arch.png)
-Scraping is not included in this repository
+
+_Scraping is not included in this repository_
 
 ## Project Overview
 This bot is based on SQLite and OpenAI Chat GPT. The idea was to use GPT's 
@@ -40,3 +41,9 @@ or other options such as Mistral-7B. The downside here is that most models do no
 * SQLite is not a good option when scaling an app. We can consider MySQL for medium scale, as it is still easy to maintain and deploy, and much faster and resilient.
 In cae this goes to much higher scales, other DBs should be considered, such Google 
 Spanner or BigQuery, for example.
+
+While the IMDB data scraping is not included, it should also be considered. As the data is updated on a daily basis,
+I would use an Airflow DAG to do the following:
+1. Download fresh
+2. Unzip
+3. Preprocess and update SQL DB
