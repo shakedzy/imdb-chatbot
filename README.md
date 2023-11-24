@@ -5,9 +5,9 @@ A Python GPT-based Chatbot for querying data from IMDB non-commercial dataset
 
 Run:
 ```bash
-pip install toml openai
+pip install -r requirements.txt 
 ```
-**Note:** This bot is designed using the latest version of the OpenAI API (1.3.5), released on November 6th, 2023. If you have an older version
+**Note:** This bot is designed using the latest version of the OpenAI API, released on November 6th, 2023. If you have an older version
 of the this Python library installed, run:
 ```bash
 pip install --upgrade openai
