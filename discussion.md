@@ -42,7 +42,7 @@ or other options such as Mistral-7B. The downside here is that most models do no
 In cae this goes to much higher scales, other DBs should be considered, such Google 
 Spanner or BigQuery, for example.
 
-While the IMDB data scraping is mpt included, it should also be considered. As the data is updated on a daily basis,
+While the IMDB data scraping is not included, it should also be considered. As the data is updated on a daily basis,
 I would use an Airflow DAG to do the following:
 1. Download fresh
 2. Unzip
