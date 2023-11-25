@@ -31,6 +31,7 @@ Run:
 python create_local_db.py
 ```
 This will generate a file called `imdb.db`
+**Note:** This process might take 10-15 minutes to complete.
 
 
 ## Run bot
