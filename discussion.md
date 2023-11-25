@@ -47,6 +47,6 @@ In these cases, an extra step of locating the correct data sources should be mad
 
 While the IMDB data scraping is not included, it should also be considered. As the data is updated on a daily basis,
 I would use an Airflow DAG to do the following:
-1. Download fresh
+1. Download fresh data
 2. Unzip
 3. Preprocess and update SQL DB
