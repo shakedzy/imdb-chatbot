@@ -35,12 +35,15 @@ formatting of the TSV files.
 While selecting GPT and SQLite made getting this up and running super fast, this won't
 hold when trying to scale this bot usage. 
 
-* OpenAI can temporarily stop accepting requests if the rate becomes high. In cases such as these, a private LLM will do better - either a cloud-hosted one such as LLaMA, 
+* OpenAI can temporarily stop accepting requests if the rate becomes high. Also, latency of calling the OpenAI API needs to be taken into account. Therefore, a private LLM might suit better - either a cloud-hosted one such as LLaMA, 
 or other options such as Mistral-7B. The downside here is that most models do not support external function calling out-of-the-box, and adjustments would be needed.
 
 * SQLite is not a good option when scaling an app. We can consider MySQL for medium scale, as it is still easy to maintain and deploy, and much faster and resilient.
 In cae this goes to much higher scales, other DBs should be considered, such Google 
 Spanner or BigQuery, for example.
+
+* As there are only very few tables to query, it is possible to provide the bot with the entire schemas as part of the prompt. When the number of data sources scales, this might not be possible.
+In these cases, an extra step of locating the correct data sources should be made. This can be done perhaps using RAG or maybe another searching mechanism. 
 
 While the IMDB data scraping is not included, it should also be considered. As the data is updated on a daily basis,
 I would use an Airflow DAG to do the following:
