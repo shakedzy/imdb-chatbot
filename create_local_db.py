@@ -20,10 +20,12 @@ def flatten_list(nested_list):
     return flattened
 
 
+print("Starting...")
 conn = sqlite3.connect('imdb.db')
 cursor = conn.cursor()
 
 for table, fields in toml.load("tables.toml").items():
+    print(f"Creating table: {table}...")
 
     # Reading table names from tables.toml and creating each table
     sql = f"CREATE TABLE {table} ("
@@ -40,6 +42,7 @@ for table, fields in toml.load("tables.toml").items():
     cursor.execute(sql)
     
     # Read the data from the TSV files and add it to the tables
+    # This is done line-by-line due to the size of the files
     with open(f'data/{table.replace("_",".")}.tsv', 'r') as file:
         tsv_reader = csv.reader(file, delimiter='\t')
 
