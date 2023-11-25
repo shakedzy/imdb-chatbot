@@ -22,7 +22,7 @@ export OPENAI_API_KEY="YOUR_KEY"
 ## Downloading Data
 1. Download the [IMDB dataset](https://datasets.imdbws.com/)
 1. Extract all files
-1. Place all TSV files under a directory named `/data` in this repo
+1. Place all TSV files under a directory named `/data` in this repo's cloned directory
 
 
 ## Build local DB
