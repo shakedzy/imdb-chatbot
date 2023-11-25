@@ -5,6 +5,8 @@ from textwrap import dedent
 from openai import OpenAI
 
 
+QUERY_RESULT_MAX_LENGTH = 2000
+
 conn = sqlite3.connect('imdb.db')
 cursor = conn.cursor()
 client = OpenAI()
@@ -49,7 +51,12 @@ def query_result_as_markdown_table(query: str) ->  str:
 
     # Joining all parts into a single string
     markdown_table = '\n'.join([header_line, separator_line] + data_lines)
-    return markdown_table
+
+    # Return an error if the result is too large, as there's a limit on the number of tokens.
+    if len(markdown_table) <= QUERY_RESULT_MAX_LENGTH:
+        return markdown_table
+    else:
+        return "Error: query result is too large."
 
 
 system_prompt = {
@@ -70,8 +77,8 @@ system_prompt = {
 
 instructions = dedent("""IMPORTANT:
                       * When creating SQL queries, use SQLite syntax. Arrays are stores as TEXT with commas separating values
-                      * Your response must be human-readable and understandble to the average user. 
-                      * When possible, reply using lists.
+                      * Your response must be human-readable and understandable to the average user. 
+                      * Identifiers and IDs are internal, and should not be presented to the user.
                       """)
 
 tools = [
