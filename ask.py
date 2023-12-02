@@ -70,13 +70,13 @@ system_prompt = {
                 Tables:
                 ```
                 {get_schemas()}
-                ``
+                ```
                 
                IMPORTANT: You can only rely on the data from these tables.""")
 }
 
 instructions = dedent("""IMPORTANT:
-                      * When creating SQL queries, use SQLite syntax. Arrays are stores as TEXT with commas separating values
+                      * When creating SQL queries, use SQLite syntax. Arrays are stored as TEXT with commas separating values
                       * Your response must be human-readable and understandable to the average user. 
                       * Identifiers and IDs are internal, and should not be presented to the user.
                       """)
